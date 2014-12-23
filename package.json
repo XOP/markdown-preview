@@ -1,0 +1,23 @@
+{
+  "name": "markdown-preview",
+  "version": "0.0.0",
+  "description": "small app for editing stylized html using markdown syntax",
+  "main": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/XOP/markdown-preview.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XOP/markdown-preview/issues"
+  },
+  "homepage": "https://github.com/XOP/markdown-preview",
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-markdown": "^1.0.0",
+    "browser-sync": "^1.7.3",
+    "gulp-header": "^1.2.2",
+    "gulp-sass": "^1.2.4"
+  }
+}

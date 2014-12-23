@@ -1,7 +1,6 @@
 # dev
 node_modules
 .tmp
-package.json
 /preview
 
 # ide
