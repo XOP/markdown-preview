@@ -1,19 +1,80 @@
 /* Markdown preview
 ---------------------------------------------------------------------------------- */
 
-body {
-	padding: 20px;
+$c-main : #333;
+$c-aux : #777;
+$c-brand : #e33;
 
-	font: 16px/1.4 Tahoma, Helvetica, sasns-serif;
-	color: #444;
+$bg-main : #fff;
+$bg-aux : #eee;
+$bg-brand : #f66;
+
+$p : 2vw;
+
+body {
+	padding: 2vh $p*2;
+	color: $c-main;
+	font-size: 1.4em;
+	line-height: 1.5;
 	}
 
 blockquote {
+	border-left: 1vw solid $bg-brand;
+	padding: 0 0 0 $p;
 	margin-left: 0;
-	padding-left: 40px;
+	margin-right: 0;
 
-	border-left: 6px solid #ccc;
+	color: $c-aux;
+	font-size: 1.6em;
 	}
+
+h1, h2 {
+	margin-top: 4rem;
+	text-shadow: 1px 1px 2px rgba(0,0,0, .3);
+
+	& + & {
+		margin-top: 2rem;
+	}
+}
+
+hr {
+	border-color: $bg-brand;
+	border-width: 2px;
+}
+
+pre, blockquote, dl, figure, table, p, ul, ol, form {
+	margin-bottom: 1.5rem;
+}
+
+li {
+	margin-bottom: .6rem;
+}
+
+ul {
+	padding-left: $p*2;
+	ul {
+		padding: 0;
+	}
+}
+
+em {
+	color: $c-brand;
+}
+
+strong {
+	position: relative;
+	padding-left: $p;
+
+	&:before {
+		position: absolute;
+		content: "*";
+		top: -.6rem;
+		left: 0;
+
+		font-size: 2em;
+		color: $bg-brand;
+	}
+}
 
 /* /Markdown preview
 ---------------------------------------------------------------------------------- */

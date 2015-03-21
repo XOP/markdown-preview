@@ -1,10 +1,10 @@
 var gulp = require('gulp');
-var fs = require('fs');
 
 var sass = require('gulp-sass');
 var markdown = require('gulp-markdown');
-var header = require('gulp-header');
+var wrapper = require('gulp-wrapper');
 var browserSync = require('browser-sync');
+var concat = require('gulp-concat-css');
 
 
 //
@@ -12,16 +12,39 @@ var browserSync = require('browser-sync');
 gulp.task('sass', function(){
     gulp.src('./src/styles/styles.scss')
         .pipe(sass())
+        .pipe(gulp.dest('./src/styles'));
+});
+
+gulp.task('css', ['sass'], function(){
+    gulp.src('./src/styles/*.css')
+        // warning! abc-style concat
+        // Normalize, SKeleton, STyles
+        .pipe(concat('styles.css'))
         .pipe(gulp.dest('./preview/css'));
 });
 
 //
 // markdown
 gulp.task('md', function(){
+
     return gulp.src('./src/*.md')
         .pipe(markdown())
-        .pipe(header('<link rel="stylesheet" href="css/styles.css"/>\n'))
-        .pipe(header('<div placeholder></div>\n'))
+        .pipe(wrapper({
+            header : 
+                '<!doctype html>' + 
+                '<html>' + 
+                '<head>' + 
+                '<meta charset="utf-8">' +
+                '<meta name="viewport" content="width=device-width,minimum-scale=1.0,initial-scale=1,user-scalable=yes">' + 
+                '<link rel="stylesheet" href="css/styles.css"/>' +
+                '</head>' + 
+                '<body><div class="container">'
+                ,
+            footer : 
+                '</div>' + 
+                '<div placeholder></div>' + 
+                '</body></html>'
+        }))
         .pipe(gulp.dest('preview'))
         .pipe(browserSync.reload({stream:true}))
         ;
@@ -58,10 +81,15 @@ gulp.task('bs-reload', function(){
 });
 
 //
+// publish html
+gulp.task('publish', ['css', 'md']);
+
+//
 // use watcher as default task
-gulp.task('default', ['md', 'sync'], function(){
+gulp.task('default', ['css', 'md', 'sync'], function(){
     gulp.watch('./src/*.md', ['md']);
-    gulp.watch('./src/styles/*.scss', ['sass']);
+    gulp.watch('./src/styles/*.css', ['css']);
+    gulp.watch('./src/styles/*.scss', ['css']);
     gulp.watch('./preview/css/*.css', ['bs-reload']);
     gulp.watch('./preview/*.html', ['bs-reload']);
 });
